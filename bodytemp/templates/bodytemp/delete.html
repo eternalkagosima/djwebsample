@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	crossorigin="anonymous">
+	<link rel="icon" href="{% static '/icon/favicon.ico' %}">
+</head>
+<body class="container">
+	<h1 class="display-5 text-primary">{{title}}</h1>
+	<p>※以下のレコードを削除します。</p>
+	<table class="table">
+		<tr>
+			<th>日付</th>
+			<th>体温</th>
+		</tr>
+		<tr>
+			<td>{{data.edate}}</td>
+			<td>{{data.btemp}}</td>
+		</tr>
+	</table>
+	<form action="{% url 'delete' data.edate %}" method="post">
+		{% csrf_token /%}
+		<input type="submit" value="Delete" class="btn btn-danger">
+		<a href="/bodytemp" class="btn btn-secondary">Cancel</a>
+	</form>
+</body>
+</html>
