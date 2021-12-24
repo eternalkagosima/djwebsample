@@ -1,1 +1,0 @@
-web: gunicorn djwebsample.wsgi:app --log-file -
