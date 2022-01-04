@@ -14,7 +14,7 @@ def index(request):
 	if (request.method=='POST'):
 		#無限に入力されては困るので50件に制限する
 		num = BTemp.objects.all().count()
-		if num > 5:
+		if num > 50:
 			params = {
 				'title': 'その日の体温',
 				'data': data,
