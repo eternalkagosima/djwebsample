@@ -12,6 +12,7 @@
 </head>
 <body class="container">
 	<h1 class="display-5 text-primary">{{title}}</h1>
+	<p>{{message}}</p>
 	<form action="{% url 'index' %}" method="post">
 		{% csrf_token /%}
 		<div class="form-group">日付{{form.edate}}</div>

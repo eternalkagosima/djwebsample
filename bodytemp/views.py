@@ -9,8 +9,19 @@ def index(request):
 		'title': 'その日の体温',
 		'data': data,
 		'form': BTForm(),
+		'message': '',
 	}
 	if (request.method=='POST'):
+		#無限に入力されては困るので50件に制限する
+		num = BTemp.objects.all().count()
+		if num > 5:
+			params = {
+				'title': 'その日の体温',
+				'data': data,
+				'form': BTForm(),
+				'message': '50件を超えたため保存しませんでした'
+			}
+			return render(request, 'bodytemp/index.html', params)
 		edate = request.POST['edate']
 		btemp = request.POST['btemp']
 		#if same date find, overwrite data
