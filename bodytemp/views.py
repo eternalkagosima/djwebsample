@@ -1,23 +1,24 @@
 from django.shortcuts import redirect, render
-
+from django.core.paginator import Paginator
 from .models import BTemp
 from .forms import BTForm
 
-def index(request):
+def index(request, num=1):
 	data = BTemp.objects.all().order_by('edate').reverse()
+	page = Paginator(data, 5)
 	params = {
 		'title': 'その日の体温',
-		'data': data,
+		'data': page.get_page(num),
 		'form': BTForm(),
 		'message': '',
 	}
 	if (request.method=='POST'):
 		#無限に入力されては困るので50件に制限する
-		num = BTemp.objects.all().count()
-		if num > 50:
+		cnt = BTemp.objects.all().count()
+		if cnt > 50:
 			params = {
 				'title': 'その日の体温',
-				'data': data,
+				'data': page.get_page(num),
 				'form': BTForm(),
 				'message': '50件を超えたため保存しませんでした'
 			}
